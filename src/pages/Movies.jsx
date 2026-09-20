@@ -11,8 +11,10 @@ const Movies = () => {
   const [error, setError] = useState(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [displayLimit, setDisplayLimit] = useState(24);
 
   const loadInitialShows = async () => {
+    setDisplayLimit(24);
     setIsLoading(true);
     setError(null);
     try {
@@ -31,6 +33,7 @@ const Movies = () => {
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
+    setDisplayLimit(24);
     setIsLoading(true);
     setError(null);
     try {
@@ -94,15 +97,28 @@ const Movies = () => {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {movies.map(movie => (
-            <MovieCard 
-              key={movie.id} 
-              show={movie} 
-              onSelect={setSelectedMovie} 
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {movies.slice(0, displayLimit).map(movie => (
+              <MovieCard 
+                key={movie.id} 
+                show={movie} 
+                onSelect={setSelectedMovie} 
+              />
+            ))}
+          </div>
+          
+          {movies.length > displayLimit && (
+            <div className="flex justify-center mt-12 mb-4">
+              <button 
+                className="btn btn-primary px-8"
+                onClick={() => setDisplayLimit(prev => prev + 24)}
+              >
+                Load More Movies
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       <MovieModal 
