@@ -7,9 +7,12 @@ const Hero = () => {
       className="relative h-[80vh] min-h-[500px] flex items-center overflow-hidden bg-bg-primary"
     >
       {/* Normal Background Image (Original First Image) */}
-      <div 
-        className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center"
-      ></div>
+      <img 
+        src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop"
+        alt="Movie Explorer Background"
+        fetchpriority="high"
+        className="absolute inset-0 z-0 w-full h-full object-cover object-center"
+      />
       
       {/* Classic dark theme gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-bg-primary via-bg-primary/80 to-bg-primary/30 z-10"></div>
